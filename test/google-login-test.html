@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Google Login Test</title>
+
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 50px;
+        }
+
+        h1 {
+            margin-bottom: 30px;
+        }
+
+        pre {
+            margin-top: 30px;
+            padding: 16px;
+            background: #f5f5f5;
+            border-radius: 8px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+
+<h1>URL Shortener Authentication Test</h1>
+
+<div
+    id="g_id_onload"
+    data-client_id="91790939490-ed0fnav0oh2jl2n8df2eogn7mdb3gisn.apps.googleusercontent.com"
+    data-callback="handleCredentialResponse">
+</div>
+
+<div
+    class="g_id_signin"
+    data-type="standard"
+    data-theme="outline"
+    data-size="large">
+</div>
+
+<pre id="output"></pre>
+
+<script>
+
+async function handleCredentialResponse(response) {
+
+    document.getElementById("output").textContent =
+        "Received Google ID Token...\n\n";
+
+    try {
+
+        const backendResponse = await fetch(
+            "http://localhost:3000/api/v1/auth/google",
+            {
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify({
+                    idToken: response.credential
+                })
+            }
+        );
+
+        const json = await backendResponse.json();
+
+        document.getElementById("output").textContent =
+            JSON.stringify(json, null, 2);
+
+    } catch (error) {
+
+        document.getElementById("output").textContent =
+            error.message;
+
+    }
+
+}
+
+</script>
+
+</body>
+</html>
