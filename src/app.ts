@@ -4,6 +4,7 @@ import helmet from "helmet";
 
 import { apiRouter } from "./routes";
 import { errorHandler } from "./middleware/error-handler";
+import { UrlController } from "./modules/url/controller";
 
 const app = express();
 
@@ -37,6 +38,11 @@ app.get("/", (_req, res) => {
     status: "running",
   });
 });
+
+/**
+ * Public redirect endpoint.
+ */
+app.get("/:shortCode", UrlController.redirect);
 
 /**
  * =====================================

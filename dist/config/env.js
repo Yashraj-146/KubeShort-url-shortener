@@ -12,6 +12,7 @@ const envSchema = zod_1.z.object({
         .enum(["development", "test", "production"])
         .default("development"),
     PORT: zod_1.z.coerce.number().default(3000),
+    BASE_URL: zod_1.z.url(),
     DATABASE_URL: zod_1.z.string(),
     LOG_LEVEL: zod_1.z.string().default("info"),
     GOOGLE_CLIENT_ID: zod_1.z.string().default(""),

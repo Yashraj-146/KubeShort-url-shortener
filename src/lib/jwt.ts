@@ -1,11 +1,11 @@
-import jwt from "jsonwebtoken";
+import jwt, { type SignOptions } from "jsonwebtoken";
 
 import { env } from "../config/env";
 import type { JwtPayload } from "../modules/auth/types";
 
 export function generateAccessToken(payload: JwtPayload): string {
   return jwt.sign(payload, env.JWT_SECRET, {
-    expiresIn: "7d",
+    expiresIn: env.JWT_EXPIRES_IN as SignOptions["expiresIn"],
   });
 }
 

@@ -1,15 +1,16 @@
 import type { NextFunction, Request, Response } from "express";
 
+import jwt from "jsonwebtoken";
+
 import { verifyAccessToken } from "../lib/jwt";
 import { AppError } from "../errors/AppError";
+
+import type { JwtPayload } from "../modules/auth/types";
 
 declare global {
   namespace Express {
     interface Request {
-      user?: {
-        sub: string;
-        email: string;
-      };
+      user?: JwtPayload;
     }
   }
 }
@@ -23,13 +24,19 @@ export async function authenticate(
     const authorization = req.headers.authorization;
 
     if (!authorization) {
-      throw new AppError("Authorization header is missing.", 401);
+      throw new AppError(
+        "Authorization header is missing.",
+        401
+      );
     }
 
     const [scheme, token] = authorization.split(" ");
 
     if (scheme !== "Bearer" || !token) {
-      throw new AppError("Invalid authorization header.", 401);
+      throw new AppError(
+        "Invalid authorization header.",
+        401
+      );
     }
 
     const payload = verifyAccessToken(token);
@@ -38,6 +45,18 @@ export async function authenticate(
 
     next();
   } catch (error) {
+    /**
+     * Invalid or expired JWT.
+     */
+    if (error instanceof jwt.JsonWebTokenError) {
+      return next(
+        new AppError(
+          "Invalid or expired access token.",
+          401
+        )
+      );
+    }
+
     next(error);
   }
 }

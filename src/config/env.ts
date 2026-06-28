@@ -10,6 +10,8 @@ const envSchema = z.object({
 
   PORT: z.coerce.number().default(3000),
 
+  BASE_URL: z.url(),
+  
   DATABASE_URL: z.string(),
 
   LOG_LEVEL: z.string().default("info"),

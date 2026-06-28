@@ -1,0 +1,1 @@
+export { urlRouter } from "./routes";
