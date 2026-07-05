@@ -46,7 +46,7 @@ function LandingPage() {
             <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary text-primary-foreground">
               <Link2 className="h-5 w-5" aria-hidden="true" />
             </div>
-            <span className="text-lg font-semibold">ShortStack</span>
+            <span className="text-lg font-semibold">KubeShort</span>
           </div>
           <Badge variant="outline">Version 2</Badge>
         </nav>
@@ -331,7 +331,7 @@ function Dashboard() {
               <Link2 className="h-5 w-5" />
             </div>
             <div>
-              <h1 className="text-xl font-semibold">ShortStack</h1>
+              <h1 className="text-xl font-semibold">KubeShort</h1>
               <p className="text-sm text-muted-foreground">
                 {api.baseUrl}
               </p>
