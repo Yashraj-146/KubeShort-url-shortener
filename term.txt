@@ -1,0 +1,36 @@
+yashraj146@192 url-shortener % autocannon -c 100 -d 120 http://localhost:3000/Fe6M8ps         
+Running 120s test @ http://localhost:3000/Fe6M8ps
+100 connections
+
+
+┌─────────┬───────┬───────┬────────┬────────┬──────────┬──────────┬─────────┐
+│ Stat    │ 2.5%  │ 50%   │ 97.5%  │ 99%    │ Avg      │ Stdev    │ Max     │
+├─────────┼───────┼───────┼────────┼────────┼──────────┼──────────┼─────────┤
+│ Latency │ 12 ms │ 70 ms │ 136 ms │ 196 ms │ 56.79 ms │ 47.02 ms │ 1657 ms │
+└─────────┴───────┴───────┴────────┴────────┴──────────┴──────────┴─────────┘
+┌───────────┬────────┬────────┬────────┬─────────┬─────────┬────────┬────────┐
+│ Stat      │ 1%     │ 2.5%   │ 50%    │ 97.5%   │ Avg     │ Stdev  │ Min    │
+├───────────┼────────┼────────┼────────┼─────────┼─────────┼────────┼────────┤
+│ Req/Sec   │ 603    │ 663    │ 1,891  │ 2,193   │ 1,745.6 │ 399.03 │ 590    │
+├───────────┼────────┼────────┼────────┼─────────┼─────────┼────────┼────────┤
+│ Bytes/Sec │ 668 kB │ 736 kB │ 2.1 MB │ 2.43 MB │ 1.94 MB │ 443 kB │ 641 kB │
+└───────────┴────────┴────────┴────────┴─────────┴─────────┴────────┴────────┘
+
+Req/Bytes counts sampled once per second.
+# of samples: 120
+
+0 2xx responses, 209461 non 2xx responses
+210k requests in 120.14s, 232 MB read
+
+
+yashraj146@192 url-shortener % kubectl get hpa -n url-shortener --watch
+NAME                REFERENCE                  TARGETS        MINPODS   MAXPODS   REPLICAS   AGE
+url-shortener-hpa   Deployment/url-shortener   cpu: 12%/70%   2         5         2          27m
+url-shortener-hpa   Deployment/url-shortener   cpu: 99%/70%   2         5         2          28m
+url-shortener-hpa   Deployment/url-shortener   cpu: 59%/70%   2         5         3          29m
+
+yashraj146@192 url-shortener % kubectl get svc -n url-shortener                               
+NAME            TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)    AGE
+postgres        ClusterIP   10.100.188.199   <none>        5432/TCP   47m
+redis           ClusterIP   10.104.255.215   <none>        6379/TCP   47m
+url-shortener   ClusterIP   10.99.185.42     <none>        3000/TCP   42m

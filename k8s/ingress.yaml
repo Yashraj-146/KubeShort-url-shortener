@@ -1,0 +1,25 @@
+# Before we expose the application, note that Docker Desktop Kubernetes does not include an Ingress Controller 
+# by default. We'll create the Ingress manifest now, and later you can install an ingress controller (such as NGINX Ingress) 
+# if you want to route external traffic through it.
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+
+metadata:
+  name: url-shortener-ingress
+  namespace: url-shortener
+
+spec:
+  rules:
+    - host: url-shortener.local
+
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+
+            backend:
+              service:
+                name: url-shortener
+
+                port:
+                  number: 3000

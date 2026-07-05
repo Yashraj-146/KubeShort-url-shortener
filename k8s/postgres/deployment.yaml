@@ -1,0 +1,69 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: postgres
+  namespace: url-shortener
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: postgres
+
+  template:
+    metadata:
+      labels:
+        app: postgres
+
+    spec:
+      containers:
+        - name: postgres
+
+          image: postgres:16-alpine
+
+          imagePullPolicy: IfNotPresent
+
+          ports:
+            - containerPort: 5432
+
+          env:
+            - name: POSTGRES_DB
+              value: url_shortener
+
+            - name: POSTGRES_USER
+              value: postgres
+
+            - name: POSTGRES_PASSWORD
+              value: postgres
+
+          volumeMounts:
+            - name: postgres-storage
+              mountPath: /var/lib/postgresql/data
+
+          readinessProbe:
+            exec:
+              command:
+                - pg_isready
+                - -U
+                - postgres
+
+            initialDelaySeconds: 5
+            periodSeconds: 5
+
+          livenessProbe:
+            exec:
+              command:
+                - pg_isready
+                - -U
+                - postgres
+
+            initialDelaySeconds: 15
+            periodSeconds: 10
+
+      volumes:
+        - name: postgres-storage
+
+          persistentVolumeClaim:
+            claimName: postgres-pvc
