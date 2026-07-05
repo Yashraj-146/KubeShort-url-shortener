@@ -12,7 +12,7 @@ The application demonstrates how common backend concerns-authentication, persist
 
 | Service | URL |
 |---------|-----|
-| **Frontend (Vercel)** | `https://<your-vercel-app>.vercel.app` |
+| **Frontend (Vercel)** | `https://kube-short-url-shortener.vercel.app/` |
 | **Backend API (Render)** | `https://kubeshort-url-shortener.onrender.com` |
 | **Health Endpoint** | `https://kubeshort-url-shortener.onrender.com/api/v1/health` |
 
