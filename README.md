@@ -1690,3 +1690,4 @@ Instead, it was built as a practical exploration of how software systems evolve 
 The project intentionally emphasizes engineering trade-offs over framework usage, architecture over abstraction, and operational correctness over unnecessary complexity.
 
 If this repository communicates one idea, it is this:
+> **Good software is not defined by the number of technologies it uses, but by the clarity of the decisions behind them.**
