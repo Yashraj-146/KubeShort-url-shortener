@@ -1,12 +1,15 @@
 import { Router } from "express";
 
+import { authLimiter } from "../../middleware/rate-limit";
+
 import { AuthController } from "./controller";
 
 export const authRouter = Router();
 
 /**
- * =====================================
- * Google Authentication
- * =====================================
+ * Google OAuth Login
  */
-authRouter.post("/google", AuthController.googleLogin);
+authRouter.post(
+  "/google",
+  authLimiter,
+  AuthController.googleLogin);

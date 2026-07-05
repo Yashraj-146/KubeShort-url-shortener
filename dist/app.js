@@ -8,6 +8,8 @@ const cors_1 = __importDefault(require("cors"));
 const helmet_1 = __importDefault(require("helmet"));
 const routes_1 = require("./routes");
 const error_handler_1 = require("./middleware/error-handler");
+const controller_1 = require("./modules/url/controller");
+const rate_limit_1 = require("./middleware/rate-limit");
 const app = (0, express_1.default)();
 /**
  * =====================================
@@ -34,6 +36,10 @@ app.get("/", (_req, res) => {
         status: "running",
     });
 });
+/**
+ * Public redirect endpoint.
+ */
+app.get("/:shortCode", rate_limit_1.redirectLimiter, controller_1.UrlController.redirect);
 /**
  * =====================================
  * API Routes

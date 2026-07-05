@@ -5,6 +5,7 @@ import helmet from "helmet";
 import { apiRouter } from "./routes";
 import { errorHandler } from "./middleware/error-handler";
 import { UrlController } from "./modules/url/controller";
+import { redirectLimiter } from "./middleware/rate-limit";
 
 const app = express();
 
@@ -42,7 +43,11 @@ app.get("/", (_req, res) => {
 /**
  * Public redirect endpoint.
  */
-app.get("/:shortCode", UrlController.redirect);
+app.get(
+  "/:shortCode",
+  redirectLimiter,
+  UrlController.redirect
+);
 
 /**
  * =====================================

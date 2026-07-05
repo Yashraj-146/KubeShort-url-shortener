@@ -14,6 +14,16 @@ const envSchema = z.object({
   
   DATABASE_URL: z.string(),
 
+  REDIS_URL: z.url(),
+
+  REDIS_CACHE_ENABLED: z
+  .string()
+  .transform((value) => value === "true"),
+
+  BENCHMARK_MODE: z
+  .string()
+  .transform((value) => value === "true"),
+
   LOG_LEVEL: z.string().default("info"),
 
   GOOGLE_CLIENT_ID: z.string().default(""),

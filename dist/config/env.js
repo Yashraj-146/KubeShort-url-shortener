@@ -14,6 +14,7 @@ const envSchema = zod_1.z.object({
     PORT: zod_1.z.coerce.number().default(3000),
     BASE_URL: zod_1.z.url(),
     DATABASE_URL: zod_1.z.string(),
+    REDIS_URL: zod_1.z.url(),
     LOG_LEVEL: zod_1.z.string().default("info"),
     GOOGLE_CLIENT_ID: zod_1.z.string().default(""),
     JWT_SECRET: zod_1.z.string().min(32),

@@ -9,7 +9,7 @@ const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const env_1 = require("../config/env");
 function generateAccessToken(payload) {
     return jsonwebtoken_1.default.sign(payload, env_1.env.JWT_SECRET, {
-        expiresIn: "7d",
+        expiresIn: env_1.env.JWT_EXPIRES_IN,
     });
 }
 function verifyAccessToken(token) {
