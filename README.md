@@ -16,7 +16,6 @@ The application demonstrates how common backend concerns-authentication, persist
 | **Backend API (Render)** | `https://kubeshort-url-shortener.onrender.com` |
 | **Health Endpoint** | `https://kubeshort-url-shortener.onrender.com/api/v1/health` |
 
-> Replace the Vercel URL above with your actual deployed frontend URL.
 
 ---
 
